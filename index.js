@@ -42,6 +42,8 @@ function checkShopStatus() {
         const currentTimeInMinutes = hour * 60 + min;
         let timeToNextOpeningInMinutes = (1440 - currentTimeInMinutes) + (daycount * 1440) + nextOpeningTimeInMinutes;
         const [hours, minutes] = timeDifference(0, timeToNextOpeningInMinutes);
+        if(daycount === 1) return `Shop is Currently Closed. and it will be open after ${daycount} day and ${hours} Hrs ${minutes} Mins`; // Shop is closed
+        else if(daycount > 1) return `Shop is Currently Closed. and it will be open after ${daycount} days and ${hours} Hrs ${minutes} Mins`; // Shop is closed
         return `Shop is Currently Closed. and it will be open after ${hours} Hrs ${minutes} Mins`; // Shop is closed
     }
 
@@ -62,6 +64,9 @@ function checkShopStatus() {
             const [nextSchedule, daycount] = findNextWorkingDay(day)
             const nextOpeningTimeInMinutes = timeToMinutes(nextSchedule.open);
             timeToNextOpeningInMinutes = (1440 - currentTimeInMinutes) + (daycount * 1440) + nextOpeningTimeInMinutes;
+            const [hours, minutes] = timeDifference(0, timeToNextOpeningInMinutes);
+            if(daycount === 1) return `Shop is Currently Closed. and it will be open after ${daycount} day and ${hours} Hrs ${minutes} Mins`; // Shop is closed
+            else if(daycount > 1) return `Shop is Currently Closed. and it will be open after ${daycount} days and ${hours} Hrs ${minutes} Mins`; // Shop is closed
         }
         else {  // If the current time is before opening time today
             timeToNextOpeningInMinutes = openTimeInMinutes - currentTimeInMinutes;
